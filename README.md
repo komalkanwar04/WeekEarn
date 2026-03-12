@@ -21,8 +21,7 @@ python app.py
 ```
 
 3. **View App**
-- Local: http://127.0.0.1:5050
-- Internet: Check the terminal for your generated `https://...ngrok-free.app` link.
+- https://weekearn.onrender.com/
 
 ---
 
