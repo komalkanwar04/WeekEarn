@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto glass p-8 rounded-2xl shadow-sm">
+    <div class="mb-8">
+        <a href="{{ url_for('dashboard') }}"
+            class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 text-sm font-medium mb-4 inline-block">&larr;
+            Back to
+            Dashboard</a>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Post a Weekend Job</h2>
+        <p class="text-gray-600 dark:text-gray-300 mt-2">Publish an opportunity. It must occur on a Saturday or Sunday.
+        </p>
+    </div>
+
+    <form action="{{ url_for('post_job') }}" method="POST" class="space-y-6">
+        <div>
+            <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Job Title</label>
+            <input type="text" name="title" id="title" required placeholder="e.g. Event Assistant, Weekend Barista"
+                class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+        </div>
+
+        <div>
+            <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Job Description
+                &
+                Requirements</label>
+            <textarea name="description" id="description" rows="4" required
+                placeholder="Describe what the student will do..."
+                class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Working
+                    City</label>
+                <input type="text" name="city" id="city" required placeholder="e.g. Chicago"
+                    class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+            </div>
+
+            <div>
+                <label for="location_address"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Detailed Address (For
+                    Map)</label>
+                <input type="text" name="location_address" id="location_address" required
+                    placeholder="e.g. 123 Main St, Tech Park"
+                    class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <label for="salary" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Salary /
+                    Pay</label>
+                <input type="text" name="salary" id="salary" required placeholder="e.g. $15/hr or $200 total"
+                    class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+            </div>
+
+            <div>
+                <label for="payment_method" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Payment
+                    Method</label>
+                <select name="payment_method" id="payment_method" required
+                    class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+                    <option value="" disabled selected>Select method</option>
+                    <option value="Cash at end of shift">Cash at end of shift</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="PayPal / Venmo">PayPal / Venmo</option>
+                    <option value="Check">Check</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="max_spots" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Maximum Spots
+                    (# of hires)</label>
+                <input type="number" name="max_spots" id="max_spots" required min="1" placeholder="e.g. 5"
+                    class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+            </div>
+        </div>
+
+        <div>
+            <label for="job_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Job Date (Must be
+                Sat/Sun)</label>
+            <input type="date" name="job_date" id="job_date" required
+                class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+        </div>
+
+        <div
+            class="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-700 p-4 rounded-r-lg mt-6">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-400 dark:text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-blue-700 dark:text-blue-300">
+                        <strong>First Come, First Serve Rules:</strong> As soon as students apply, spots are filled
+                        instantly until the maximum is reached.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit"
+            class="w-full flex justify-center py-4 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-500/30 text-base font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition transform hover:-translate-y-1">
+            Publish Weekend Job
+        </button>
+    </form>
+</div>
+{% endblock %}

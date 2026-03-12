@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{{ url_for('dashboard') }}"
+        class="text-indigo-600 hover:text-indigo-800 text-sm font-medium mb-4 inline-block">&larr; Back to Dashboard</a>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Applicants for: {{ job.title }}</h1>
+    <div class="mt-2 text-gray-600 dark:text-gray-300 flex items-center space-x-4 text-sm">
+        <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>{{ job.city }}</span>
+        <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>{{ job.job_date.strftime('%b %d, %Y') }}</span>
+        <span><span class="font-bold text-indigo-600">{{
+                applications|selectattr("status","equalto","Accepted")|list|length }}</span> of {{ job.max_spots }}
+            Spots Filled</span>
+    </div>
+</div>
+
+<div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+    {% if applications %}
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead class="bg-gray-50 dark:bg-gray-900/50">
+            <tr>
+                <th scope="col"
+                    class="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Student
+                    Name</th>
+                <th scope="col"
+                    class="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Contact
+                </th>
+                <th scope="col"
+                    class="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Applied At
+                </th>
+                <th scope="col"
+                    class="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Status</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {% for app in applications %}
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div
+                            class="h-10 w-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-700 dark:text-indigo-300 font-bold">
+                            {{ app.student.username[:2]|upper }}
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ app.student.username }}
+                            </div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">{{ app.student.city or 'No city
+                                provided' }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {{ app.student.phone or 'No phone provided' }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {{ app.applied_at.strftime('%Y-%m-%d %H:%M') }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    {% if app.status == 'Accepted' %}
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800 mr-2">
+                        <svg class="mr-1.5 h-3 w-3 text-green-600 dark:text-green-400" fill="currentColor"
+                            viewBox="0 0 8 8">
+                            <circle cx="4" cy="4" r="3" />
+                        </svg>
+                        Hired (FCFS)
+                    </span>
+                    {% else %}
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gray-100 dark:bg-gray-700/50 text-gray-800 dark:text-gray-300 border border-gray-200 dark:border-gray-600 mr-2">
+                        <svg class="mr-1.5 h-3 w-3 text-gray-500 dark:text-gray-400" fill="currentColor"
+                            viewBox="0 0 8 8">
+                            <circle cx="4" cy="4" r="3" />
+                        </svg>
+                        Waitlisted / Replied Late
+                    </span>
+                    {% endif %}
+                    <a href="{{ url_for('chat', job_id=job.id, other_user_id=app.student_id) }}"
+                        class="inline-flex items-center px-3 py-1 bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 rounded-full text-xs font-bold hover:bg-blue-100 dark:hover:bg-blue-800/80 transition">
+                        Message
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600 mb-3" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+            </path>
+        </svg>
+        <p class="text-gray-500 dark:text-gray-400 text-lg">No one has applied for this job yet.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

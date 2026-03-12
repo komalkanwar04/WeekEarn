@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center py-20">
+    <h1
+        class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 tracking-tight sm:text-6xl mb-6">
+        Turn Your Weekends Into Earnings
+    </h1>
+    <p class="mt-4 max-w-2xl text-xl text-gray-600 dark:text-gray-300 mx-auto mb-10">
+        Empowering students to find weekend-only opportunities. First come, first serve. No lengthy interviews, just
+        work and earn.
+    </p>
+    <div class="flex justify-center space-x-4">
+        <a href="{{ url_for('register') }}"
+            class="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700 hover:-translate-y-1 transition transform shadow-xl shadow-indigo-500/30">
+            Get Started Now
+        </a>
+        <a href="{{ url_for('login') }}"
+            class="px-8 py-4 bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 rounded-xl font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:-translate-y-1 transition transform shadow-lg glass border border-indigo-100 dark:border-gray-700">
+            Login to Account
+        </a>
+    </div>
+
+    <!-- Features -->
+    <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-2xl shadow-sm hover:shadow-md transition">
+            <div
+                class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Weekend Only</h3>
+            <p class="text-gray-600 dark:text-gray-300">All opportunities posted are strictly for Saturdays and Sundays,
+                ensuring they
+                never clash with your classes.</p>
+        </div>
+        <div class="glass p-8 rounded-2xl shadow-sm hover:shadow-md transition">
+            <div
+                class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">First Come, First Serve</h3>
+            <p class="text-gray-600 dark:text-gray-300">No complex hiring processes. See an opportunity? Apply instantly
+                and secure your
+                spot immediately.</p>
+        </div>
+        <div class="glass p-8 rounded-2xl shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">City Based</h3>
+            <p class="text-gray-600 dark:text-gray-300">Companies select the exact city for the job, making it
+                incredibly easy for students
+                to find local weekend work.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

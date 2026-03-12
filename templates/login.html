@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto glass p-8 rounded-2xl shadow-sm">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8">Welcome Back</h2>
+
+    <form action="{{ url_for('login') }}" method="POST" class="space-y-6">
+        <div>
+            <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+            <input type="text" name="username" id="username" required
+                class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <input type="password" name="password" id="password" required
+                class="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 dark:bg-gray-800/50 dark:text-white">
+        </div>
+
+        <button type="submit"
+            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
+            Sign In
+        </button>
+    </form>
+
+    <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+            Don't have an account?
+            <a href="{{ url_for('register') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign Up</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
